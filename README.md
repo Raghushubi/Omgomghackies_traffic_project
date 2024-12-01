@@ -1,60 +1,64 @@
-# Traffic Sign Classification using Deep Learning
+# Vehicle Behavior Analysis for Driver Assistance
 
-## **Problem Statement**
-Traffic sign recognition is a critical task in autonomous driving systems and traffic monitoring. The ability to identify traffic signs like "Stop," "Yield," and "Proceed" ensures safer navigation for vehicles and pedestrians. Misclassification or an inability to identify traffic signs can lead to accidents or violations of traffic laws. Our goal was to develop a robust deep learning model capable of accurately classifying traffic signs into predefined categories.
+## Project Overview
+This project focuses on using computer vision and machine learning to analyze the behavior of vehicles around the driver and provide real-time advice. Based on the observed traffic situation (such as the proximity of nearby vehicles), the system predicts whether the driver should yield, stop, or proceed. This system aims to assist drivers in making safer decisions on the road.
 
----
+## Problem Statement
+In traffic, making the right decision at intersections or during merging can be critical to avoid accidents. Drivers may often need to decide whether to stop, yield, or proceed based on the vehicles around them. This project uses AI to analyze the behavior of surrounding vehicles and provide real-time suggestions to help drivers make safer decisions.
 
-## **Proposed Solution**
-We developed a traffic sign classification system using a Convolutional Neural Network (CNN) to automatically recognize and classify traffic signs. The system was trained on a labeled dataset of traffic sign images to classify them into four categories: **Stop, Proceed, Yield, and Extra**. The model is deployed as a Flask API, making it accessible for real-world applications via web or mobile interfaces.
+## Proposed Solution
+We designed a system that uses the following techniques:
+- **Vehicle Detection**: We use object detection to identify nearby vehicles in the driver’s surroundings.
+- **Situation Analysis**: Based on the positions and movements of nearby vehicles, the system predicts whether the driver should stop, yield, or proceed.
+- **Driver Advice**: The system generates real-time advice on what action the driver should take (Stop, Yield, Proceed) based on the analysis of the surrounding traffic situation.
 
-Key features of our solution:
-1. **Deep Learning Model**: A CNN architecture trained using TensorFlow/Keras.
-2. **Data Augmentation**: Enhanced the dataset by applying transformations like rotations, shifts, and zooms to improve generalization.
-3. **API Deployment**: A lightweight Flask application that enables users to upload images and get real-time predictions.
-4. **Organized Dataset**: Labeled traffic sign images were preprocessed and split into training and testing datasets for better model performance.
+### Key AI Techniques Used:
+1. **Object Detection**: Detects nearby vehicles using YOLOv8.
+2. **Situation Analysis**: A machine learning model analyzes vehicle positions and predicts the best course of action (stop, yield, or proceed).
+3. **Driver Assistance System**: Provides real-time recommendations based on the analysis of the traffic environment.
 
----
+## How It Works
+1. **Vehicle Detection**: The system uses YOLOv8 for detecting vehicles within the frame captured from a camera.
+2. **Situation Analysis**: The model analyzes the positions, speed, and direction of nearby vehicles. The system considers whether vehicles are close to an intersection, moving towards the vehicle, or stopping.
+3. **Decision Prediction**: Based on the analysis, the system predicts the appropriate action for the driver:
+   - **Stop**: If vehicles are approaching or blocking the path.
+   - **Yield**: If the situation requires caution but proceeding is safe.
+   - **Proceed**: If the way is clear and it’s safe to continue.
 
-## **AI Tools and Frameworks**
-1. **YOLOv8 (Ultralytics)**: Used for initial object detection and labeling of traffic signs in images.
-2. **TensorFlow/Keras**: Framework used for building and training the CNN model.
-3. **Flask**: Lightweight web framework used to deploy the trained model as an API.
-4. **Scikit-learn**: Utilized for splitting the dataset into training and testing sets.
-5. **OpenCV**: Used for image preprocessing and visualization tasks.
-6. **Matplotlib**: For plotting annotated images and visualizing results.
+## Demo
 
----
+1. **Input**: Upload a video or live feed containing surrounding vehicles.
+2. **Processing**: The system detects nearby vehicles and analyzes their positions and movement.
+3. **Output**: The system advises the driver to "Stop", "Yield", or "Proceed".
 
-## **Model Architecture**
-We designed a simple CNN with the following layers:
-1. **Input Layer**: Accepts 64x64 RGB images.
-2. **Convolutional Layers**: Extract features using 32 and 64 filters with ReLU activation.
-3. **MaxPooling Layers**: Reduces spatial dimensions while retaining important features.
-4. **Fully Connected Layers**: Processes extracted features for classification.
-5. **Output Layer**: Uses a softmax activation function to classify images into 4 categories.
+### Example Output:
+- "Advice: Stop"
+- "Advice: Yield"
+- "Advice: Proceed"
 
----
+## Results & Impact
+This system assists drivers by providing real-time traffic analysis and advice, helping them make safer decisions. The model provides predictions based on the current situation, allowing drivers to avoid potential collisions and navigate intersections safely.
 
-## **Results and Impact**
-- **Model Accuracy**: Achieved a classification accuracy of over **90%** on the test dataset.
-- **Real-time Predictions**: The Flask API provides quick and accurate predictions for uploaded images.
-- **Dataset Organization**: Proper labeling and augmentation improved model generalization.
-- **Practical Application**: The system can be integrated into autonomous driving software, traffic monitoring systems, or educational tools for driver training.
+## Future Scope
+- **Real-time Integration**: Integrate with in-car systems for real-time decision-making.
+- **Improved Accuracy**: Enhance the model's ability to handle complex driving environments and multiple vehicles.
+- **Expanded Dataset**: Train on more diverse datasets with different road conditions, times of day, and weather.
 
----
+## Screenshots
 
-## **Future Scope**
-1. **Dataset Expansion**: Increase the number of classes to include more traffic signs and enhance the diversity of images.
-2. **Model Optimization**: Implement transfer learning using pre-trained models like MobileNet or ResNet for better accuracy and faster training.
-3. **Edge Deployment**: Deploy the model on edge devices such as Raspberry Pi or Nvidia Jetson for on-the-go traffic sign detection.
-4. **Real-time Video Processing**: Extend the model to process real-time video streams for dynamic traffic environments.
-5. **Multilingual Traffic Signs**: Adapt the system to recognize text-based or regional traffic signs from different countries.
+### Example:
+![Example Output](output.PNG)
 
----
+## Technologies Used
+- **Python** for model development and backend.
+- **TensorFlow/Keras** for deep learning model development.
+- **YOLOv8** for vehicle detection.
+- **Flask** for web app deployment.
+- **OpenCV** for image and video processing.
 
-## **How to Use**
-### **Requirements**
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/traffic-sign-classification.git
+## Installation & Setup
+
+### 1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/vehicle-behavior-analysis.git
+cd vehicle-behavior-analysis
