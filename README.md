@@ -1,4 +1,5 @@
-# Vehicle Behavior Analysis for Driver Assistance
+# Drive Aware
+## Vehicle Behavior Analysis for Driver Assistance
 
 ## Project Overview
 This project focuses on using computer vision and machine learning to analyze the behavior of vehicles around the driver and provide real-time advice. Based on the observed traffic situation (such as the proximity of nearby vehicles), the system predicts whether the driver should yield, stop, or proceed. This system aims to assist drivers in making safer decisions on the road.
