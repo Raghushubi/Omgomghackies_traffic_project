@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Sign Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-box {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            background: #fff;
+            max-width: 500px;
+        }
+        .upload-box input[type="file"] {
+            display: block;
+            margin: 10px auto;
+        }
+        .upload-box label {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .result-box {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #28a745;
+        }
+        .error-box {
+            color: #dc3545;
+            font-size: 1.2em;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Sign Classification</h1>
+    <div class="upload-box">
+        <!-- Removed the extra form here -->
+        <label for="fileInput">Choose an image to classify</label>
+        <input type="file" id="fileInput" name="file" accept="image/*">
+        <br><br>
+        <button type="button" onclick="classifyImage()">Classify</button>
+    </div>
+    <div class="result-box" id="resultBox"></div>
+    <div class="error-box" id="errorBox"></div>
+
+    <script>
+        function classifyImage() {
+            // Clear previous results
+            document.getElementById('resultBox').textContent = '';
+            document.getElementById('errorBox').textContent = '';
+
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files[0]) {
+                document.getElementById('errorBox').textContent = 'Please select an image.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('errorBox').textContent = data.error;
+                } else {
+                    document.getElementById('resultBox').textContent = 'Predicted Class: ' + data.predicted_class;
+                }
+            })
+            .catch(error => {
+                document.getElementById('errorBox').textContent = 'Error connecting to the server. Check if Flask is running.';
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
